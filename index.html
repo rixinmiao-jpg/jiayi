@@ -543,9 +543,10 @@
 
   function saveData() {
     setSync('busy', '正在保存到云端…');
+    var clean = JSON.stringify(DB, function(k, v) { return k === '_preview' ? undefined : v; });
     var body = {
       message: '佳宜更新于 ' + new Date().toLocaleString('zh-CN'),
-      content: b64e(JSON.stringify(DB)),
+      content: b64e(clean),
       branch: CFG.branch
     };
     if (dataSha) body.sha = dataSha;
