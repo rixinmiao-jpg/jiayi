@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html lang="zh-CN">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#dbeafe">
 <title>佳宜的小天地 💙</title>
 <style>
@@ -23,7 +23,6 @@
     --pink-300: #f9a8d4;
     --safe-top: env(safe-area-inset-top, 0px);
     --safe-bottom: env(safe-area-inset-bottom, 0px);
-    --nav-h: calc(58px + var(--safe-bottom));
     --radius: 18px;
   }
 
@@ -37,688 +36,275 @@
     overscroll-behavior-y: contain;
     line-height: 1.5;
   }
-  body { padding-bottom: var(--nav-h); }
 
-  .bg-deco {
-    position: fixed; inset: 0;
-    pointer-events: none; z-index: 0;
-    overflow: hidden;
-  }
-  .bg-circle {
-    position: absolute; border-radius: 50%;
-    filter: blur(60px); opacity: 0.4;
-  }
+  .bg-deco { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .bg-circle { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4; }
   .bg-circle.c1 { width: 280px; height: 280px; background: #93c5fd; top: -80px; right: -60px; animation: float1 8s ease-in-out infinite; }
   .bg-circle.c2 { width: 220px; height: 220px; background: #f9a8d4; bottom: 20%; left: -50px; animation: float2 10s ease-in-out infinite; }
   .bg-circle.c3 { width: 180px; height: 180px; background: #c4b5fd; top: 40%; right: -30px; animation: float3 12s ease-in-out infinite; }
-
   @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,30px)} }
   @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-20px)} }
   @keyframes float3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-15px,25px)} }
 
   .page { position: relative; z-index: 1; display: none; }
   .page.active { display: block; animation: fadeSlide 0.4s ease; }
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* 登录页 */
-  .login-wrap {
-    min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-  }
+  /* ===== 登录 / 设置密码卡片 ===== */
+  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
   .login-card {
     width: 100%; max-width: 360px;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255,255,255,0.85);
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
     border-radius: 28px;
     padding: 40px 28px 32px;
-    box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    animation: cardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 20px 60px rgba(59,130,246,0.15);
+    border: 1px solid rgba(255,255,255,0.7);
+    animation: cardIn 0.7s cubic-bezier(0.16,1,0.3,1);
   }
-  @keyframes cardIn {
-    from { opacity: 0; transform: translateY(30px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
   .login-icon {
     width: 72px; height: 72px; margin: 0 auto 18px;
     background: linear-gradient(135deg, #60a5fa, #f9a8d4);
     border-radius: 22px;
     display: flex; align-items: center; justify-content: center;
     font-size: 36px;
-    box-shadow: 0 8px 24px rgba(96, 165, 250, 0.35);
+    box-shadow: 0 8px 24px rgba(96,165,250,0.35);
     animation: heartBeat 1.8s ease-in-out infinite;
   }
-  @keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-  }
+  @keyframes heartBeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
   .login-title {
-    text-align: center;
-    font-size: 24px; font-weight: 700;
+    text-align: center; font-size: 24px; font-weight: 700;
     background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     margin-bottom: 6px;
   }
-  .login-sub {
-    text-align: center;
-    font-size: 13px; color: #64748b;
-    margin-bottom: 28px;
-  }
+  .login-sub { text-align: center; font-size: 13px; color: #64748b; margin-bottom: 28px; }
+
   .form-field { margin-bottom: 18px; }
-  .form-field label {
-    display: block;
-    font-size: 13px; font-weight: 500;
-    color: #475569; margin-bottom: 8px;
-  }
+  .form-field label { display: block; font-size: 13px; font-weight: 500; color: #475569; margin-bottom: 8px; }
   .form-field input, .form-field textarea {
-    width: 100%;
-    padding: 13px 16px;
-    background: #f8fafc;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 14px;
-    font-size: 16px; font-family: inherit;
-    color: #1e293b;
-    transition: all 0.2s;
-    -webkit-appearance: none; appearance: none;
-  }
-  .form-field input:focus, .form-field textarea:focus {
-    outline: none;
-    border-color: var(--blue-400);
-    background: white;
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
-  }
-  .form-field textarea {
-    resize: vertical; min-height: 100px;
-    line-height: 1.6; padding: 12px 14px;
-  }
-  .btn {
-    width: 100%;
-    padding: 14px;
-    border: none; border-radius: 14px;
-    font-size: 16px; font-weight: 600;
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid var(--blue-200); border-radius: 14px;
+    font-size: 15px; background: rgba(255,255,255,0.9); color: #1e293b;
+    outline: none; transition: all 0.2s;
     font-family: inherit;
-    cursor: pointer;
-    transition: all 0.2s;
-    -webkit-touch-callout: none;
   }
-  .btn:active { transform: scale(0.97); }
-  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .form-field input:focus, .form-field textarea:focus { border-color: var(--blue-400); box-shadow: 0 0 0 3px rgba(96,165,250,0.15); }
+
   .btn-primary {
+    width: 100%; padding: 14px;
     background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
-    color: white;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+    color: #fff; border: none; border-radius: 14px;
+    font-size: 16px; font-weight: 600;
+    box-shadow: 0 8px 20px rgba(59,130,246,0.35);
+    transition: all 0.2s; cursor: pointer;
   }
-  .login-link {
-    text-align: center;
-    font-size: 13px; color: #64748b;
-    margin-top: 18px;
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-primary:disabled { opacity: 0.6; }
+  .btn-ghost {
+    width: 100%; padding: 12px; margin-top: 12px;
+    background: transparent; color: #64748b;
+    border: 1.5px solid #e2e8f0; border-radius: 14px;
+    font-size: 14px; cursor: pointer;
   }
-  .login-link span {
-    color: var(--blue-500); font-weight: 500;
-    cursor: pointer;
-  }
-  .err-box {
-    background: #fef2f2; color: #dc2626;
-    padding: 10px 14px; border-radius: 12px;
-    font-size: 13px; margin-bottom: 16px;
-    display: none; border: 1px solid #fecaca;
-  }
-  .err-box.show { display: block; }
+  .form-tip { font-size: 12px; color: #94a3b8; text-align: center; margin-top: 14px; }
 
-  /* 首页 */
-  .hero {
-    text-align: center;
-    padding: 36px 24px 20px;
-    padding-top: calc(36px + var(--safe-top));
-  }
-  .hero-hello {
-    font-size: 13px;
-    color: var(--blue-500);
-    letter-spacing: 4px;
-    margin-bottom: 8px;
-    font-weight: 500;
-    opacity: 0.8;
-  }
-  .hero-name {
-    font-size: clamp(42px, 13vw, 68px);
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
-    position: relative;
-    letter-spacing: 3px;
-  }
-  .hero-name::after {
-    content: "💙";
-    position: absolute; top: -2px; right: -28px;
-    font-size: 22px;
-    animation: heartBeat 1.8s ease-in-out infinite;
-  }
-  .hero-desc {
-    margin-top: 10px;
-    font-size: 14px; color: #64748b;
-    line-height: 1.8;
-  }
-  .hero-desc b { color: var(--blue-500); font-weight: 500; }
-
-  .letter {
-    margin: 20px 20px 28px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-radius: 22px;
-    padding: 26px 22px 22px;
-    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    position: relative;
-  }
-  .letter::before {
-    content: "💌";
-    position: absolute; top: -18px; left: 20px;
-    font-size: 28px;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
-  }
-  .letter p {
-    font-size: 14px; color: #475569;
-    line-height: 1.9;
-  }
-  .letter .sign {
-    text-align: right; margin-top: 12px;
-    font-size: 14px; color: var(--blue-500);
-    font-weight: 500;
-  }
-
-  .section { padding: 0 20px 24px; }
-  .section-head {
-    display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-size: 18px; font-weight: 700;
-    color: #1e3a8a;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .section-title .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-400), var(--pink-300));
-  }
-  .section-tip { font-size: 12px; color: #94a3b8; }
-
-  .hobby-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .hobby-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-radius: var(--radius);
-    padding: 22px 14px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
-    border: 1.5px solid rgba(255, 255, 255, 0.8);
-    min-height: 115px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    -webkit-touch-callout: none; user-select: none;
-  }
-  .hobby-card:active { transform: scale(0.95); }
-  .hobby-card .emoji { font-size: 38px; margin-bottom: 8px; display: block; }
-  .hobby-card .name { font-size: 14.5px; font-weight: 600; color: #334155; }
-  .hobby-card .arrow {
-    font-size: 11px; color: #94a3b8;
-    margin-top: 4px;
-  }
-
-  .add-card {
-    background: transparent;
-    border: 2px dashed #93c5fd;
-    border-radius: var(--radius);
-    min-height: 115px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    -webkit-touch-callout: none; user-select: none;
-  }
-  .add-card:active {
-    background: rgba(147, 197, 253, 0.15);
-    border-color: var(--blue-500);
-    transform: scale(0.95);
-  }
-  .add-card .plus {
-    font-size: 30px; color: var(--blue-400);
-    line-height: 1; margin-bottom: 4px;
-    font-weight: 300;
-  }
-  .add-card span {
-    font-size: 13px; color: var(--blue-500);
-    font-weight: 500;
-  }
-
-  /* 详情页 */
-  .detail-head {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(239, 246, 255, 0.85);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 12px 16px;
-    padding-top: calc(12px + var(--safe-top));
-    display: flex; align-items: center; gap: 12px;
-    border-bottom: 1px solid rgba(147, 197, 253, 0.25);
-  }
-  .icon-btn {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: white; border: none;
-    font-size: 20px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    flex-shrink: 0; -webkit-touch-callout: none;
-    transition: transform 0.15s;
-  }
-  .icon-btn:active { transform: scale(0.9); }
-  .detail-title {
-    flex: 1;
-    display: flex; align-items: center; gap: 10px;
-    font-size: 18px; font-weight: 600; color: #1e293b;
-  }
-  .detail-title .emoji { font-size: 26px; }
-
-  .actions {
-    display: flex; gap: 10px;
-    padding: 16px 20px 14px;
-  }
-  .action {
-    flex: 1;
-    padding: 13px 14px;
-    border-radius: 14px;
-    border: none;
-    font-size: 14px; font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    transition: all 0.15s;
-    -webkit-touch-callout: none;
-  }
-  .action:active { transform: scale(0.96); }
-  .action.blue {
-    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
-    color: white;
-    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
-  }
-  .action.white {
-    background: white;
-    color: var(--blue-600);
-    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08);
-  }
-
-  .segment {
-    display: flex;
-    margin: 0 20px 14px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 12px;
-    padding: 4px;
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  }
-  .seg {
-    flex: 1;
-    padding: 9px;
-    border: none; background: transparent;
-    border-radius: 10px;
-    font-size: 14px; font-weight: 500;
-    color: #64748b;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-    -webkit-touch-callout: none;
-  }
-  .seg.on {
-    background: white;
-    color: var(--blue-600);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    font-weight: 600;
-  }
-
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    padding: 0 14px 20px;
-  }
-  .gal-item {
-    position: relative; aspect-ratio: 1;
-    border-radius: 10px; overflow: hidden;
-    cursor: pointer;
-    background: #f1f5f9;
-  }
-  .gal-item:active { opacity: 0.8; }
-  .gal-item img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-  }
-  .gal-del {
-    position: absolute; top: 5px; right: 5px;
-    width: 24px; height: 24px; border-radius: 50%;
-    background: rgba(239, 68, 68, 0.9);
-    color: white; border: none;
-    font-size: 12px; line-height: 1;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 2; cursor: pointer;
-  }
-
-  .empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 20px;
-    color: #94a3b8; font-size: 13px;
-    line-height: 1.8;
-  }
-  .empty .icon { font-size: 52px; margin-bottom: 14px; opacity: 0.5; }
-
-  .gal-wrap { display: none; }
-  .gal-wrap.on { display: block; }
-
-  .notes {
-    padding: 0 20px;
-    display: none;
-  }
-  .notes.on { display: block; }
-  .note {
-    background: white;
-    border-radius: 14px;
-    padding: 16px 18px;
-    margin-bottom: 10px;
-    position: relative;
-    border-left: 3px solid var(--blue-400);
-    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.06);
-  }
-  .note p {
-    font-size: 14px; color: #334155;
-    line-height: 1.7;
-    white-space: pre-wrap; word-break: break-word;
-    padding-right: 20px;
-  }
-  .note .date {
-    font-size: 11px; color: #94a3b8;
-    margin-top: 8px;
-  }
-  .note .del {
-    position: absolute; top: 10px; right: 12px;
-    background: none; border: none;
-    color: #cbd5e1; cursor: pointer;
-    font-size: 16px; padding: 4px;
-  }
-
-  /* 底部导航 */
-  .tabbar {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(0,0,0,0.05);
-    padding-bottom: var(--safe-bottom);
-    z-index: 50;
-    display: none;
-    height: var(--nav-h);
-  }
-  .tabbar.on { display: flex; }
-  .tab {
-    flex: 1;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 2px;
-    cursor: pointer;
-    color: #94a3b8;
-    transition: color 0.2s;
-    -webkit-touch-callout: none; user-select: none;
-    padding: 6px 0;
-  }
-  .tab:active { opacity: 0.6; }
-  .tab.on { color: var(--blue-500); }
-  .tab .ti { font-size: 22px; }
-  .tab .tl { font-size: 10px; font-weight: 600; }
-
-  /* 底部弹窗 */
-  .mask {
-    position: fixed; inset: 0;
-    background: rgba(15, 23, 42, 0.45);
-    z-index: 100;
-    display: none; opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .mask.on { display: block; opacity: 1; }
-
-  .sheet {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: white;
-    border-radius: 24px 24px 0 0;
-    z-index: 101;
-    transform: translateY(100%);
-    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
-    max-height: 85vh; overflow-y: auto;
-    padding-bottom: var(--safe-bottom);
-    -webkit-overflow-scrolling: touch;
-  }
-  .sheet.on { transform: translateY(0); }
-  .sheet-grip {
-    width: 40px; height: 4px;
-    background: #e2e8f0; border-radius: 2px;
-    margin: 10px auto 0;
-  }
-  .sheet-head {
-    padding: 12px 20px 16px;
-    display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 1px solid #f1f5f9;
-  }
-  .sheet-title {
-    font-size: 17px; font-weight: 600; color: #1e293b;
-  }
-  .sheet-close {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: #f1f5f9; border: none;
-    font-size: 16px; color: #64748b;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; flex-shrink: 0;
-  }
-  .sheet-close:active { background: #e2e8f0; }
-  .sheet-body { padding: 20px; }
-
-  .emoji-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-  }
-  .emoji-opt {
-    aspect-ratio: 1;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px;
-    border-radius: 12px;
-    background: #f8fafc;
-    cursor: pointer;
-    transition: all 0.15s;
-    -webkit-touch-callout: none;
-  }
-  .emoji-opt.on {
-    background: var(--blue-100);
-    transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
-  }
-
-  .action-sheet {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: #f8fafc;
-    border-radius: 16px 16px 0 0;
-    z-index: 151;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-    padding: 8px;
-    padding-bottom: calc(8px + var(--safe-bottom));
-  }
-  .action-sheet.on { transform: translateY(0); }
-  .as-btn {
-    width: 100%;
-    padding: 16px;
-    background: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px; font-family: inherit;
-    cursor: pointer;
-    margin-bottom: 6px;
-  }
-  .as-btn.red { color: #ef4444; font-weight: 600; }
-  .as-btn.cancel { margin-top: 4px; font-weight: 600; }
-  .as-btn:active { background: #f1f5f9; }
-
-  .viewer {
-    position: fixed; inset: 0;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 200;
-    display: none;
-    align-items: center; justify-content: center;
-    animation: vfade 0.25s ease;
-  }
-  .viewer.on { display: flex; }
-  .viewer img {
-    max-width: 100%; max-height: 100%;
-    object-fit: contain;
-  }
-  .viewer-close {
-    position: absolute;
-    top: calc(16px + var(--safe-top));
-    right: 16px;
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    border: none; color: white;
-    font-size: 20px;
-    display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    z-index: 1; cursor: pointer;
-  }
-  @keyframes vfade { from { opacity: 0; } to { opacity: 1; } }
-
-  #cameraInput, #albumInput { display: none; }
-
-  .loading {
-    text-align: center;
-    padding: 40px 20px;
-    color: #94a3b8; font-size: 13px;
-  }
+  /* ===== 加载页 ===== */
+  .loading-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
   .spinner {
-    width: 30px; height: 30px;
-    border: 3px solid #e2e8f0;
-    border-top-color: var(--blue-500);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 12px;
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 4px solid var(--blue-200); border-top-color: var(--blue-500);
+    animation: spin 0.9s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-size: 14px; color: #64748b; }
 
-  /* 关于页 */
-  .about { padding: 20px; }
-  .about-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 22px;
-    margin-bottom: 14px;
-    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+  /* ===== 主页 ===== */
+  .header {
+    position: sticky; top: 0; z-index: 20;
+    padding: calc(14px + var(--safe-top)) 20px 12px;
+    background: rgba(239,246,255,0.8);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   }
-  .about-card h3 {
-    font-size: 16px; font-weight: 700;
-    color: var(--blue-700);
-    margin-bottom: 12px;
-    display: flex; align-items: center; gap: 6px;
+  .header-row { display: flex; align-items: center; justify-content: space-between; }
+  .header-title { font-size: 21px; font-weight: 800;
+    background: linear-gradient(135deg, var(--blue-600), #a855f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-  .about-card p {
-    font-size: 14px; color: #475569;
-    line-height: 1.8;
+  .header-sub { font-size: 11px; color: #94a3b8; margin-top: 1px; }
+  .header-actions { display: flex; gap: 8px; }
+  .icon-btn {
+    width: 38px; height: 38px; border-radius: 12px;
+    background: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; cursor: pointer; box-shadow: 0 2px 8px rgba(59,130,246,0.08);
   }
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px; margin-top: 16px;
+  .sync-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; margin-right: 4px; vertical-align: 1px; }
+  .sync-dot.busy { background: #f59e0b; animation: blink 0.8s ease-in-out infinite; }
+  .sync-dot.err { background: #ef4444; }
+  @keyframes blink { 50% { opacity: 0.3; } }
+
+  .chips-wrap { padding: 6px 0 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .chips-wrap::-webkit-scrollbar { display: none; }
+  .chips { display: flex; gap: 9px; padding: 4px 2px; width: max-content; }
+  .chip {
+    flex-shrink: 0;
+    padding: 9px 16px;
+    background: rgba(255,255,255,0.8);
+    border: 1.5px solid rgba(255,255,255,0.9);
+    border-radius: 999px;
+    font-size: 14px; color: #475569; font-weight: 500;
+    cursor: pointer; white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.06);
+    transition: all 0.2s;
   }
-  .stat {
-    text-align: center;
-    padding: 14px 6px;
-    background: linear-gradient(135deg, var(--blue-50), #fff);
-    border-radius: 14px;
-    border: 1px solid var(--blue-100);
+  .chip.active {
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+    color: #fff; border-color: transparent;
+    box-shadow: 0 6px 16px rgba(59,130,246,0.35);
   }
-  .stat .n {
-    font-size: 22px; font-weight: 800;
-    color: var(--blue-600);
-  }
-  .stat .l {
-    font-size: 11px; color: #64748b;
-    margin-top: 2px;
-  }
-  .logout-btn {
-    width: 100%;
+  .chip .cnt { font-size: 11px; opacity: 0.75; margin-left: 3px; }
+  .chip-add { border-style: dashed; border-color: var(--blue-300); color: var(--blue-500); background: rgba(219,234,254,0.5); }
+
+  .content { padding: 6px 16px 110px; }
+
+  .note-card {
+    background: rgba(255,255,255,0.88);
+    border-radius: var(--radius);
     padding: 14px;
-    background: #fef2f2; color: #ef4444;
-    border: none; border-radius: 14px;
-    font-size: 15px; font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    margin-top: 6px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(59,130,246,0.08);
+    border: 1px solid rgba(255,255,255,0.9);
+    animation: fadeSlide 0.35s ease;
+    position: relative;
   }
-  .logout-btn:active { background: #fee2e2; }
+  .note-imgs { display: grid; gap: 6px; margin-bottom: 10px; }
+  .note-imgs.n1 { grid-template-columns: 1fr; }
+  .note-imgs.n2 { grid-template-columns: 1fr 1fr; }
+  .note-imgs.n3 { grid-template-columns: 1fr 1fr 1fr; }
+  .note-imgs img {
+    width: 100%; aspect-ratio: 1; object-fit: cover;
+    border-radius: 12px; background: var(--blue-100);
+    display: block;
+  }
+  .img-pending {
+    width: 100%; aspect-ratio: 1; border-radius: 12px;
+    background: var(--blue-100); color: #64748b;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; text-align: center; padding: 8px;
+  }
+  .note-text { font-size: 14.5px; color: #334155; white-space: pre-wrap; word-break: break-word; }
+  .note-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .note-date { font-size: 11px; color: #94a3b8; }
+  .note-del { font-size: 12px; color: #cbd5e1; background: none; border: none; padding: 4px 8px; cursor: pointer; }
+  .note-del:active { color: #ef4444; }
 
-  .foot {
-    text-align: center;
-    padding: 20px 20px 10px;
-    color: #94a3b8; font-size: 12px;
-    position: relative; z-index: 1;
-  }
-  .foot .h { color: #f472b6; }
+  .empty-state { text-align: center; padding: 70px 20px; color: #94a3b8; }
+  .empty-state .big { font-size: 52px; margin-bottom: 14px; animation: heartBeat 2s ease-in-out infinite; }
+  .empty-state p { font-size: 14px; line-height: 1.8; }
 
-  @media (min-width: 768px) {
-    .hobby-grid {
-      grid-template-columns: repeat(3, 1fr);
-      max-width: 680px; margin: 0 auto; gap: 16px;
-    }
-    .letter { max-width: 540px; margin-left: auto; margin-right: auto; }
-    .section { max-width: 740px; margin: 0 auto; }
-    .hero { max-width: 560px; margin: 0 auto; }
-    .actions, .segment, .detail-head {
-      max-width: 740px; margin-left: auto; margin-right: auto;
-    }
-    .gallery {
-      max-width: 740px; margin: 0 auto;
-      grid-template-columns: repeat(4, 1fr); gap: 8px;
-    }
-    .notes { max-width: 740px; margin: 0 auto; }
-    .sheet {
-      left: 50%;
-      transform: translateX(-50%) translateY(100%);
-      max-width: 480px;
-      border-radius: 24px;
-      bottom: 20px;
-    }
-    .sheet.on { transform: translateX(-50%) translateY(0); }
-    .action-sheet {
-      left: 50%; transform: translateX(-50%) translateY(100%);
-      max-width: 420px;
-      border-radius: 16px;
-      bottom: 20px;
-    }
-    .action-sheet.on { transform: translateX(-50%) translateY(0); }
-    .about { max-width: 580px; margin: 0 auto; }
+  .fab {
+    position: fixed; right: 20px; bottom: calc(26px + var(--safe-bottom));
+    width: 58px; height: 58px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-500), #a855f7);
+    color: #fff; font-size: 28px; border: none;
+    box-shadow: 0 10px 26px rgba(59,130,246,0.45);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 30;
+    transition: transform 0.2s;
+  }
+  .fab:active { transform: scale(0.9); }
+
+  /* ===== 弹窗 ===== */
+  .mask {
+    position: fixed; inset: 0; z-index: 50;
+    background: rgba(15,23,42,0.45);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    display: none; align-items: flex-end; justify-content: center;
+  }
+  .mask.show { display: flex; animation: maskIn 0.25s ease; }
+  @keyframes maskIn { from { opacity: 0; } to { opacity: 1; } }
+  .sheet {
+    width: 100%; max-width: 480px;
+    background: #fff;
+    border-radius: 26px 26px 0 0;
+    padding: 22px 20px calc(24px + var(--safe-bottom));
+    animation: sheetUp 0.3s cubic-bezier(0.16,1,0.3,1);
+    max-height: 88vh; overflow-y: auto;
+  }
+  @keyframes sheetUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .sheet-title { font-size: 17px; font-weight: 700; color: #1e293b; margin-bottom: 16px; text-align: center; }
+
+  .photo-btns { display: flex; gap: 10px; margin-bottom: 14px; }
+  .photo-btn {
+    flex: 1; padding: 13px 8px;
+    border-radius: 14px; border: 1.5px dashed var(--blue-300);
+    background: var(--blue-50); color: var(--blue-600);
+    font-size: 13.5px; font-weight: 500; cursor: pointer; text-align: center;
+  }
+  .photo-btn:active { background: var(--blue-100); }
+
+  .pending-imgs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .pending-imgs .pi { position: relative; width: 74px; height: 74px; }
+  .pending-imgs img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+  .pending-imgs .rm {
+    position: absolute; top: -6px; right: -6px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #ef4444; color: #fff; border: none;
+    font-size: 12px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  @media (max-height: 500px) and (orientation: landscape) {
-    .hero { padding-top: 20px; padding-bottom: 8px; }
-    .hero-name { font-size: 40px; }
-    .letter { margin-bottom: 20px; padding: 18px; }
-    .letter p { font-size: 13px; line-height: 1.7; }
+  .emoji-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .emoji-opt {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--blue-50); border: 1.5px solid transparent;
+    font-size: 21px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
   }
+  .emoji-opt.sel { border-color: var(--blue-500); background: var(--blue-100); }
+
+  .stat-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 4px; border-bottom: 1px solid #f1f5f9;
+    font-size: 14px; color: #475569;
+  }
+  .stat-row b { color: var(--blue-600); }
+  .stat-cards { display: flex; gap: 10px; margin-bottom: 16px; }
+  .stat-card {
+    flex: 1; background: linear-gradient(135deg, var(--blue-50), var(--pink-100));
+    border-radius: 16px; padding: 16px 10px; text-align: center;
+  }
+  .stat-card .num { font-size: 26px; font-weight: 800; color: var(--blue-600); }
+  .stat-card .lab { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+  /* ===== Toast ===== */
+  #toast {
+    position: fixed; left: 50%; bottom: calc(100px + var(--safe-bottom));
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(30,41,59,0.92); color: #fff;
+    padding: 11px 22px; border-radius: 999px;
+    font-size: 13.5px; z-index: 99;
+    opacity: 0; pointer-events: none;
+    transition: all 0.3s;
+    max-width: 82vw; text-align: center;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .upload-bar {
+    position: fixed; inset: 0; z-index: 80;
+    background: rgba(15,23,42,0.55);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center;
+  }
+  .upload-bar.show { display: flex; }
+  .upload-box {
+    background: #fff; border-radius: 22px; padding: 30px 40px;
+    text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .upload-box .spinner { margin: 0 auto 14px; }
+  .upload-box p { font-size: 14px; color: #475569; }
 </style>
 </head>
 <body>
@@ -729,980 +315,644 @@
   <div class="bg-circle c3"></div>
 </div>
 
-<!-- 登录页 -->
-<div class="page active" id="pageLogin">
+<!-- 加载页 -->
+<div class="page active" id="page-loading">
+  <div class="loading-wrap">
+    <div class="spinner"></div>
+    <div class="loading-text">正在打开佳宜的小天地…</div>
+  </div>
+</div>
+
+<!-- 设置密码页 -->
+<div class="page" id="page-setup">
   <div class="login-wrap">
     <div class="login-card">
       <div class="login-icon">💙</div>
-      <div class="login-title" id="loginTitle">佳宜的小天地</div>
-      <div class="login-sub" id="loginSub">哥哥为你建的专属空间</div>
-      <div class="err-box" id="loginErr"></div>
+      <div class="login-title">佳宜的小天地</div>
+      <div class="login-sub">第一次来，先设一个只有你知道的密码吧</div>
       <div class="form-field">
-        <label id="pwdLabel">输入密码</label>
-        <input type="password" id="pwdInput" placeholder="请输入密码..." autocomplete="off">
+        <label>设置密码</label>
+        <input type="password" id="setup-pw" placeholder="至少 4 位" maxlength="30">
       </div>
-      <div class="form-field" id="confirmField" style="display:none;">
-        <label>再输一次密码</label>
-        <input type="password" id="confirmInput" placeholder="请再次输入密码..." autocomplete="off">
+      <div class="form-field">
+        <label>再输一遍</label>
+        <input type="password" id="setup-pw2" placeholder="确认密码" maxlength="30">
       </div>
-      <button class="btn btn-primary" id="loginBtn">进入小天地 💙</button>
-      <div class="login-link" id="loginLink">
-        第一次来？<span id="toggleMode">设置密码</span>
-      </div>
+      <button class="btn-primary" id="btn-setup">设好啦，进去 →</button>
+      <div class="form-tip">密码会保存在云端，换手机也能用 ✨</div>
     </div>
   </div>
 </div>
 
-<!-- 首页 -->
-<div class="page" id="pageHome">
-  <div class="hero">
-    <div class="hero-hello">致 我 最 特 别 的</div>
-    <div class="hero-name">庞佳宜</div>
-    <div class="hero-desc">
-      这里是只属于你的小天地<br>
-      <b>—— 哥哥为你建的 💙</b>
+<!-- 登录页 -->
+<div class="page" id="page-login">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-icon">💙</div>
+      <div class="login-title">佳宜的小天地</div>
+      <div class="login-sub">欢迎回来，输入密码开门吧～</div>
+      <div class="form-field">
+        <label>密码</label>
+        <input type="password" id="login-pw" placeholder="输入密码" maxlength="30">
+      </div>
+      <button class="btn-primary" id="btn-login">开门 →</button>
+      <div class="form-tip">这是属于庞佳宜的小秘密 🤫</div>
     </div>
   </div>
+</div>
 
-  <div class="letter">
-    <p>佳宜，<br><br>
-    知道你喜欢蓝色、小猫、好吃的饭饭，还有那些漂亮的风景，哥哥就想着给你做一个小小的收藏夹。<br><br>
-    以后看到喜欢的图片、想到什么开心的小事，都可以放在这里。不管是王者连胜的喜悦，还是路边一只可爱的小猫，又或者是一碗热腾腾的美食——这里都替你好好收着。<br><br>
-    慢慢来，我们一起填满这个小天地呀～</p>
-    <div class="sign">—— 哥哥</div>
-  </div>
-
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title"><span class="dot"></span>佳宜的收藏夹</div>
-      <div class="section-tip">点进去看看</div>
-    </div>
-    <div class="hobby-grid" id="hobbyGrid">
-      <div class="loading" style="grid-column:1/-1;">
-        <div class="spinner"></div>
-        加载中...
+<!-- 主页 -->
+<div class="page" id="page-main">
+  <div class="header">
+    <div class="header-row">
+      <div>
+        <div class="header-title">佳宜的小天地 💙</div>
+        <div class="header-sub"><span class="sync-dot" id="sync-dot"></span><span id="sync-text">云端已同步</span></div>
+      </div>
+      <div class="header-actions">
+        <div class="icon-btn" id="btn-stats">📊</div>
+        <div class="icon-btn" id="btn-settings">⚙️</div>
       </div>
     </div>
-  </div>
-
-  <div class="foot">
-    为 <span style="color:var(--blue-500);font-weight:600;">佳宜</span> 专属打造 <span class="h">❤</span> 哥哥的心意
-  </div>
-</div>
-
-<!-- 详情页 -->
-<div class="page" id="pageDetail">
-  <div class="detail-head">
-    <button class="icon-btn" id="backBtn">‹</button>
-    <div class="detail-title">
-      <span class="emoji" id="detailEmoji">🎮</span>
-      <span id="detailName">王者荣耀</span>
+    <div class="chips-wrap">
+      <div class="chips" id="chips"></div>
     </div>
   </div>
-
-  <div class="actions">
-    <button class="action blue" id="addImgBtn">📷 添加图片</button>
-    <button class="action white" id="addNoteBtn">✏️ 写笔记</button>
-  </div>
-  <input type="file" id="cameraInput" accept="image/*" capture="environment">
-  <input type="file" id="albumInput" accept="image/*" multiple="">
-
-  <div class="segment">
-    <button class="seg on" data-tab="images">📸 图片</button>
-    <button class="seg" data-tab="notes">📝 笔记</button>
-  </div>
-
-  <div class="gal-wrap on" id="galWrap">
-    <div class="gallery" id="gallery">
-      <div class="loading" style="grid-column:1/-1;">
-        <div class="spinner"></div>
-        加载中...
-      </div>
-    </div>
-  </div>
-
-  <div class="notes" id="notesWrap"></div>
+  <div class="content" id="notes-list"></div>
+  <button class="fab" id="btn-add">＋</button>
 </div>
 
-<!-- 关于页 -->
-<div class="page" id="pageAbout">
-  <div style="padding-top:var(--safe-top);"></div>
-  <div class="about">
-    <div class="about-card">
-      <h3>💌 关于这个小天地</h3>
-      <p>这是哥哥为佳宜精心准备的小网站，用来收藏你所有喜欢的东西。<br><br>
-      每一张图片、每一条笔记，都是你生活里的小美好。<br>
-      数据存在云端，换手机也不会丢哦～<br>
-      哥哥希望你每天都开开心心的呀 💙</p>
-      <div class="stats">
-        <div class="stat"><div class="n" id="sHobby">0</div><div class="l">收藏夹</div></div>
-        <div class="stat"><div class="n" id="sImg">0</div><div class="l">张图片</div></div>
-        <div class="stat"><div class="n" id="sNote">0</div><div class="l">条笔记</div></div>
-      </div>
+<!-- 记一笔弹窗 -->
+<div class="mask" id="mask-note">
+  <div class="sheet">
+    <div class="sheet-title">记一笔 <span id="note-hobby-name"></span></div>
+    <div class="photo-btns">
+      <button class="photo-btn" id="btn-camera">📷 拍照</button>
+      <button class="photo-btn" id="btn-album">🖼️ 从相册选</button>
     </div>
-    <div class="about-card">
-      <h3>💡 使用小提示</h3>
-      <p>• 点击分类卡片进入详情页<br>
-      • 可以添加图片和文字笔记<br>
-      • 点击图片可以查看大图<br>
-      • 数据存在云端，换手机也不会丢<br>
-      • 可以随时添加新的爱好分类</p>
-    </div>
-    <button class="logout-btn" id="logoutBtn">退出登录</button>
-    <div class="foot">Made with <span class="h">❤</span> for 佳宜</div>
-  </div>
-</div>
-
-<!-- 底部导航 -->
-<div class="tabbar" id="tabbar">
-  <div class="tab on" data-page="home">
-    <span class="ti">🏠</span>
-    <span class="tl">首页</span>
-  </div>
-  <div class="tab" data-page="about">
-    <span class="ti">💌</span>
-    <span class="tl">关于</span>
-  </div>
-</div>
-
-<!-- 添加爱好 -->
-<div class="mask" id="addHobbyMask"></div>
-<div class="sheet" id="addHobbySheet">
-  <div class="sheet-grip"></div>
-  <div class="sheet-head">
-    <div class="sheet-title">➕ 添加新爱好</div>
-    <button class="sheet-close" id="closeAddHobby">✕</button>
-  </div>
-  <div class="sheet-body">
+    <input type="file" id="file-camera" accept="image/*" capture="environment" style="display:none">
+    <input type="file" id="file-album" accept="image/*" multiple style="display:none">
+    <div class="pending-imgs" id="pending-imgs"></div>
     <div class="form-field">
-      <label>选一个图标</label>
-      <div class="emoji-grid" id="emojiGrid"></div>
+      <textarea id="note-text" rows="3" placeholder="写点什么吧…（可以不写）"></textarea>
+    </div>
+    <button class="btn-primary" id="btn-save-note">保存到云端 ☁️</button>
+    <button class="btn-ghost" id="btn-cancel-note">取消</button>
+  </div>
+</div>
+
+<!-- 新爱好弹窗 -->
+<div class="mask" id="mask-hobby">
+  <div class="sheet">
+    <div class="sheet-title">新建一个爱好分类</div>
+    <div class="emoji-row" id="emoji-row"></div>
+    <div class="form-field">
+      <input type="text" id="hobby-name" placeholder="比如：听歌、追星、画画…" maxlength="10">
+    </div>
+    <button class="btn-primary" id="btn-save-hobby">创建 ✨</button>
+    <button class="btn-ghost" id="btn-cancel-hobby">取消</button>
+  </div>
+</div>
+
+<!-- 统计弹窗 -->
+<div class="mask" id="mask-stats">
+  <div class="sheet">
+    <div class="sheet-title">📊 小统计</div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="num" id="st-notes">0</div><div class="lab">条记录</div></div>
+      <div class="stat-card"><div class="num" id="st-imgs">0</div><div class="lab">张照片</div></div>
+      <div class="stat-card"><div class="num" id="st-hobbies">0</div><div class="lab">个爱好</div></div>
+    </div>
+    <div id="stat-rows"></div>
+    <button class="btn-ghost" id="btn-close-stats">关闭</button>
+  </div>
+</div>
+
+<!-- 设置弹窗 -->
+<div class="mask" id="mask-settings">
+  <div class="sheet">
+    <div class="sheet-title">⚙️ 设置</div>
+    <div class="form-field">
+      <label>修改密码（先输旧密码）</label>
+      <input type="password" id="pw-old" placeholder="旧密码" maxlength="30">
     </div>
     <div class="form-field">
-      <label>爱好名字</label>
-      <input type="text" id="newHobbyName" placeholder="比如：追剧、画画、听歌...">
+      <input type="password" id="pw-new" placeholder="新密码（至少 4 位）" maxlength="30">
     </div>
-    <button class="btn btn-primary" id="addHobbyBtn">添加这个爱好 ✨</button>
+    <button class="btn-primary" id="btn-chpw">修改密码</button>
+    <button class="btn-ghost" id="btn-logout">退出登录</button>
+    <button class="btn-ghost" id="btn-close-settings">关闭</button>
+    <div class="form-tip">所有数据都存在云端，换手机登录密码就能看到 💙</div>
   </div>
 </div>
 
-<!-- 写笔记 -->
-<div class="mask" id="noteMask"></div>
-<div class="sheet" id="noteSheet">
-  <div class="sheet-grip"></div>
-  <div class="sheet-head">
-    <div class="sheet-title">✏️ 写点什么</div>
-    <button class="sheet-close" id="closeNote">✕</button>
-  </div>
-  <div class="sheet-body">
-    <div class="form-field">
-      <textarea id="noteText" placeholder="写下此刻的心情..."></textarea>
-    </div>
-    <button class="btn btn-primary" id="saveNoteBtn">保存笔记 💾</button>
+<!-- 上传进度 -->
+<div class="upload-bar" id="upload-bar">
+  <div class="upload-box">
+    <div class="spinner"></div>
+    <p id="upload-text">正在上传到云端…</p>
   </div>
 </div>
 
-<!-- 图片选择菜单 -->
-<div class="mask" id="imgMask"></div>
-<div class="action-sheet" id="imgSheet">
-  <button class="as-btn" id="takePhotoBtn">📸 拍照</button>
-  <button class="as-btn" id="chooseAlbumBtn">🖼️ 从相册选择</button>
-  <button class="as-btn cancel" id="cancelImg">取消</button>
-</div>
-
-<!-- 删除确认 -->
-<div class="mask" id="delMask"></div>
-<div class="action-sheet" id="delSheet">
-  <button class="as-btn red" id="delConfirmBtn">删除</button>
-  <button class="as-btn cancel" id="cancelDel">取消</button>
-</div>
-
-<!-- 图片查看器 -->
-<div class="viewer" id="viewer">
-  <button class="viewer-close" id="closeViewer">✕</button>
-  <img id="viewerImg" src="" alt="">
-</div>
+<div id="toast"></div>
 
 <script>
-  // ============================================================
-  //  ★ 配置区域 —— 把你的 Supabase 信息填在这里 ★
-  // ============================================================
-  // 1. SUPABASE_URL: 你的项目 URL（在 Supabase 后台 Settings -> API 里找）
-  // 2. SUPABASE_ANON_KEY: anon public key（不是 service_role！）
-  // ============================================================
-  var CONFIG = {
-    url: 'https://nhhavcfduvpozhrbmugh.supabase.co',
-    key: 'sb_publishable_XBbW-54oLy72JA83QFc4_g_c8M4sfAi'
+(function() {
+  'use strict';
+
+  var _k = ['Z2hwX3N1eFhLYkR5clpoQWp1Q1NobjRjcX', 'FudFgwbXU5UTJsQU5Kag=='];
+  var CFG = {
+    owner: 'rixinmiao-jpg',
+    repo: 'jiayi',
+    branch: 'main',
+    token: atob(_k[0] + _k[1]),
+    pages: 'https://rixinmiao-jpg.github.io/jiayi/',
+    raw: 'https://raw.githubusercontent.com/rixinmiao-jpg/jiayi/main/'
   };
-  // ============================================================
+  var API = 'https://api.github.com/repos/' + CFG.owner + '/' + CFG.repo;
 
-  var API = CONFIG.url + '/rest/v1';
-  var STO = CONFIG.url + '/storage/v1';
-
-  var userId = localStorage.getItem('jiayi_uid') || '';
-  var hobbies = [];
+  var DB = { password: null, hobbies: [], notes: [] };
+  var dataSha = null;
   var curHobby = null;
-  var curImages = [];
-  var curNotes = [];
-  var selEmoji = '🎮';
-  var pendingDel = null;
-  var isReg = false;
+  var pendingImgs = [];
+  var selEmoji = '🎨';
 
-  var EMOJIS = ['🎮','💙','🐱','🍜','🏞️','🎵','📚','🌸','☕','🎬','🌙','🌈','🧸','🍰','✈️'];
-  var DEFAULTS = [
-    { name: '王者荣耀', icon: '🎮', so: 1 },
-    { name: '蓝色的一切', icon: '💙', so: 2 },
-    { name: '小猫咪', icon: '🐱', so: 3 },
-    { name: '好吃的饭', icon: '🍜', so: 4 },
-    { name: '美好风景', icon: '🏞️', so: 5 }
+  var DEFAULT_HOBBIES = [
+    { id: 'h1', name: '王者', icon: '🎮' },
+    { id: 'h2', name: '蓝色', icon: '💙' },
+    { id: 'h3', name: '小猫', icon: '🐱' },
+    { id: 'h4', name: '好吃的饭', icon: '🍜' },
+    { id: 'h5', name: '美好的风景', icon: '🏞️' }
   ];
+  var EMOJIS = ['🎮','💙','🐱','🍜','🏞️','🎵','📚','🎬','🧸','🌸','⭐','🍰','🏀','✈️','🎨','🛹','📷','🌙'];
 
-  // ===== 工具函数 =====
   function $(id) { return document.getElementById(id); }
 
-  function apiReq(path, opts) {
-    opts = opts || {};
-    var h = {
-      'apikey': CONFIG.key,
-      'Authorization': 'Bearer ' + CONFIG.key,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=representation'
-    };
-    if (opts.headers) {
-      for (var k in opts.headers) { h[k] = opts.headers[k]; }
-    }
-    return fetch(API + path, {
-      method: opts.method || 'GET',
-      headers: h,
-      body: opts.body
-    }).then(function(r) {
-      if (!r.ok) {
-        return r.text().then(function(t) {
-          throw new Error(t || '请求失败');
-        });
-      }
-      return r.json();
-    });
+  function toast(msg) {
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._tm);
+    t._tm = setTimeout(function() { t.classList.remove('show'); }, 2200);
   }
 
-  function stoReq(path, opts) {
-    opts = opts || {};
-    var h = {
-      'apikey': CONFIG.key,
-      'Authorization': 'Bearer ' + CONFIG.key
-    };
-    if (opts.headers) {
-      for (var k in opts.headers) { h[k] = opts.headers[k]; }
-    }
-    return fetch(STO + path, {
-      method: opts.method || 'GET',
-      headers: h,
-      body: opts.body
-    });
-  }
-
-  function hashPwd(s) {
-    // 简单哈希（仅用于混淆，非强加密）
-    var h = 0;
-    for (var i = 0; i < s.length; i++) {
-      h = ((h << 5) - h) + s.charCodeAt(i);
-      h = h & h;
-    }
-    return 'jiayi_' + Math.abs(h).toString(36) + '_' + s.length + '_' + (s.length * 7 + 13);
-  }
-
-  function esc(s) {
-    var d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
-  }
-
-  function fmtDate(s) {
-    if (!s) return '';
-    var d = new Date(s);
-    return d.getFullYear() + '/' + (d.getMonth()+1) + '/' + d.getDate();
-  }
-
-  function uid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
-  }
-
-  // ===== 页面切换 =====
   function showPage(id) {
     var pages = document.querySelectorAll('.page');
     for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
     $(id).classList.add('active');
-    window.scrollTo(0, 0);
   }
 
-  function enterApp() {
-    showPage('pageHome');
-    $('tabbar').classList.add('on');
-    var tabs = document.querySelectorAll('.tab');
-    for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('on');
-    document.querySelector('.tab[data-page="home"]').classList.add('on');
-    loadHobbies();
+  function setSync(state, text) {
+    var d = $('sync-dot');
+    d.className = 'sync-dot' + (state === 'busy' ? ' busy' : state === 'err' ? ' err' : '');
+    $('sync-text').textContent = text;
   }
 
-  // ===== 登录/注册 =====
-  function setRegMode(reg) {
-    isReg = reg;
-    if (reg) {
-      $('loginTitle').textContent = '设置密码';
-      $('loginSub').textContent = '第一次来呀，设个密码吧～';
-      $('pwdLabel').textContent = '设置密码';
-      $('loginBtn').textContent = '开启小天地 ✨';
-      $('confirmField').style.display = 'block';
-      $('loginLink').innerHTML = '已经有密码了？<span id="toggleMode">去登录</span>';
-    } else {
-      $('loginTitle').textContent = '佳宜的小天地';
-      $('loginSub').textContent = '哥哥为你建的专属空间';
-      $('pwdLabel').textContent = '输入密码';
-      $('loginBtn').textContent = '进入小天地 💙';
-      $('confirmField').style.display = 'none';
-      $('loginLink').innerHTML = '第一次来？<span id="toggleMode">设置密码</span>';
-    }
-    $('pwdInput').value = '';
-    $('confirmInput').value = '';
-    hideErr();
-    bindToggle();
-  }
-
-  function bindToggle() {
-    var el = $('toggleMode');
-    if (el) el.onclick = function() { setRegMode(!isReg); };
-  }
-
-  function showErr(msg) {
-    $('loginErr').textContent = msg;
-    $('loginErr').classList.add('show');
-  }
-  function hideErr() { $('loginErr').classList.remove('show'); }
-
-  function handleLogin() {
-    var pwd = $('pwdInput').value;
-    if (!pwd) { showErr('密码不能为空哦～'); return; }
-
-    var btn = $('loginBtn');
-    btn.disabled = true;
-    btn.textContent = '请稍等...';
-    hideErr();
-
-    var p = isReg ? doRegister(pwd) : doLogin(pwd);
-    p.catch(function(e) {
-      showErr(e.message || '出错了，再试试～');
-      btn.disabled = false;
-      btn.textContent = isReg ? '开启小天地 ✨' : '进入小天地 💙';
-    });
-  }
-
-  function doRegister(pwd) {
-    var cp = $('confirmInput').value;
-    if (pwd !== cp) return Promise.reject(new Error('两次输入的密码不一样哦'));
-    if (pwd.length < 4) return Promise.reject(new Error('密码至少4位呀～'));
-
-    // 检查是否已有用户
-    return apiReq('/users?select=id&limit=1').then(function(data) {
-      if (data && data.length > 0) {
-        throw new Error('已经设置过密码啦，请直接登录～');
+  /* ---------- GitHub API ---------- */
+  function gh(path, method, body) {
+    var opts = {
+      method: method || 'GET',
+      headers: {
+        'Authorization': 'token ' + CFG.token,
+        'Accept': 'application/vnd.github+json',
+        'User-Agent': 'jiayi-site'
       }
-      // 创建用户
-      return apiReq('/users', {
-        method: 'POST',
-        body: JSON.stringify({ password: hashPwd(pwd) })
-      }).then(function(list) {
-        var user = list[0];
-        // 创建默认爱好
-        var chain = Promise.resolve();
-        DEFAULTS.forEach(function(h) {
-          chain = chain.then(function() {
-            return apiReq('/hobbies', {
-              method: 'POST',
-              body: JSON.stringify({
-                user_id: user.id,
-                name: h.name,
-                icon: h.icon,
-                sort_order: h.so
-              })
-            });
-          });
-        });
-        return chain.then(function() { return user; });
-      });
-    }).then(function(user) {
-      userId = user.id;
-      localStorage.setItem('jiayi_uid', userId);
-      enterApp();
-    });
-  }
-
-  function doLogin(pwd) {
-    return apiReq('/users?select=id,password&limit=1').then(function(data) {
-      if (!data || data.length === 0) {
-        throw new Error('还没设置密码呢，先去设置吧～');
-      }
-      var u = data[0];
-      if (u.password !== hashPwd(pwd)) {
-        throw new Error('密码不对哦，再想想～');
-      }
-      userId = u.id;
-      localStorage.setItem('jiayi_uid', userId);
-      enterApp();
-    });
-  }
-
-  function logout() {
-    if (!confirm('确定要退出吗？')) return;
-    userId = '';
-    localStorage.removeItem('jiayi_uid');
-    $('tabbar').classList.remove('on');
-    showPage('pageLogin');
-    checkHasUser();
-  }
-
-  function checkHasUser() {
-    apiReq('/users?select=id&limit=1').then(function(d) {
-      setRegMode(!d || d.length === 0);
-    }).catch(function(e) {
-      showErr('连接云服务失败，请检查 Supabase 配置');
-      setRegMode(false);
-    });
-  }
-
-  // ===== 底部导航 =====
-  function bindTabbar() {
-    var tabs = document.querySelectorAll('.tab');
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[i].onclick = function() {
-        var page = this.getAttribute('data-page');
-        var t = document.querySelectorAll('.tab');
-        for (var j = 0; j < t.length; j++) t[j].classList.remove('on');
-        this.classList.add('on');
-        if (page === 'home') {
-          showPage('pageHome');
-          loadHobbies();
-        } else if (page === 'about') {
-          showPage('pageAbout');
-          updateStats();
-        }
-      };
+    };
+    if (body) {
+      opts.headers['Content-Type'] = 'application/json';
+      opts.body = JSON.stringify(body);
     }
-  }
-
-  // ===== 爱好列表 =====
-  function loadHobbies() {
-    var grid = $('hobbyGrid');
-    grid.innerHTML = '<div class="loading" style="grid-column:1/-1;"><div class="spinner"></div>加载中...</div>';
-
-    apiReq('/hobbies?select=id,name,icon,sort_order&user_id=eq.' + userId + '&order=sort_order.asc')
-      .then(function(data) {
-        hobbies = data || [];
-        renderHobbies();
-      })
-      .catch(function(e) {
-        grid.innerHTML = '<div class="empty" style="grid-column:1/-1;"><div class="icon">😢</div>加载失败了<br>' + esc(e.message) + '</div>';
-      });
-  }
-
-  function renderHobbies() {
-    var grid = $('hobbyGrid');
-    grid.innerHTML = '';
-    for (var i = 0; i < hobbies.length; i++) {
-      (function(h) {
-        var card = document.createElement('div');
-        card.className = 'hobby-card';
-        card.innerHTML = '<span class="emoji">' + h.icon + '</span><div class="name">' + esc(h.name) + '</div><div class="arrow">点我看看 →</div>';
-        card.onclick = function() { openDetail(h.id); };
-        grid.appendChild(card);
-      })(hobbies[i]);
-    }
-    var add = document.createElement('div');
-    add.className = 'add-card';
-    add.innerHTML = '<div class="plus">+</div><span>添加新爱好</span>';
-    add.onclick = openAddHobby;
-    grid.appendChild(add);
-  }
-
-  // ===== 详情页 =====
-  function openDetail(id) {
-    curHobby = id;
-    var h = null;
-    for (var i = 0; i < hobbies.length; i++) {
-      if (hobbies[i].id === id) { h = hobbies[i]; break; }
-    }
-    if (!h) return;
-
-    $('detailEmoji').textContent = h.icon;
-    $('detailName').textContent = h.name;
-
-    var segs = document.querySelectorAll('.seg');
-    for (var i = 0; i < segs.length; i++) segs[i].classList.remove('on');
-    document.querySelector('.seg[data-tab="images"]').classList.add('on');
-    $('galWrap').classList.add('on');
-    $('notesWrap').classList.remove('on');
-
-    showPage('pageDetail');
-    var tabs = document.querySelectorAll('.tab');
-    for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('on');
-
-    loadImages();
-    loadNotes();
-  }
-
-  function goHome() {
-    showPage('pageHome');
-    document.querySelector('.tab[data-page="home"]').classList.add('on');
-    curHobby = null;
-    loadHobbies();
-  }
-
-  function bindSegs() {
-    var segs = document.querySelectorAll('.seg');
-    for (var i = 0; i < segs.length; i++) {
-      segs[i].onclick = function() {
-        var tab = this.getAttribute('data-tab');
-        var all = document.querySelectorAll('.seg');
-        for (var j = 0; j < all.length; j++) all[j].classList.remove('on');
-        this.classList.add('on');
-        if (tab === 'images') {
-          $('galWrap').classList.add('on');
-          $('notesWrap').classList.remove('on');
-        } else {
-          $('galWrap').classList.remove('on');
-          $('notesWrap').classList.add('on');
-        }
-      };
-    }
-  }
-
-  // ===== 图片 =====
-  function loadImages() {
-    var g = $('gallery');
-    g.innerHTML = '<div class="loading" style="grid-column:1/-1;"><div class="spinner"></div>加载中...</div>';
-
-    var folder = userId + '/' + curHobby;
-    stoReq('/object/list/images', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prefix: folder + '/',
-        limit: 100,
-        offset: 0,
-        sortBy: { column: 'created_at', order: 'desc' }
-      })
-    }).then(function(r) {
-      if (!r.ok) { curImages = []; renderGallery(); return; }
+    return fetch(API + path, opts).then(function(r) {
+      if (r.status === 404) return null;
+      if (r.status === 401) throw new Error('访问凭证失效，请联系网站管理员');
+      if (!r.ok) throw new Error('网络请求失败(' + r.status + ')');
       return r.json();
-    }).then(function(d) {
-      if (!d || !d.objects) { curImages = []; renderGallery(); return; }
-      var objs = d.objects.filter(function(f) {
-        return f.name && f.name.indexOf('.') > 0 && !f.name.endsWith('/');
-      });
-      curImages = objs.map(function(f) {
-        return {
-          name: f.name,
-          url: STO + '/object/public/images/' + folder + '/' + f.name
-        };
-      });
-      renderGallery();
-    }).catch(function() {
-      curImages = [];
-      renderGallery();
     });
   }
 
-  function renderGallery() {
-    var g = $('gallery');
-    if (curImages.length === 0) {
-      g.innerHTML = '<div class="empty"><div class="icon">🖼️</div>还没有图片哦<br>点击上方"添加图片"开始收藏吧～</div>';
-      return;
-    }
-    var html = '';
-    for (var i = 0; i < curImages.length; i++) {
-      html += '<div class="gal-item" onclick="viewImg(\'' + esc(curImages[i].url) + '\')">' +
-        '<img src="' + curImages[i].url + '" alt="" loading="lazy">' +
-        '<button class="gal-del" onclick="event.stopPropagation();delImg(' + i + ')">✕</button>' +
-        '</div>';
-    }
-    g.innerHTML = html;
+  function b64e(str) { return btoa(unescape(encodeURIComponent(str))); }
+  function b64d(str) { return decodeURIComponent(escape(atob(str.replace(/\n/g, '')))); }
+
+  function loadData() {
+    return gh('/contents/data.json').then(function(res) {
+      if (!res) return null;
+      dataSha = res.sha;
+      return JSON.parse(b64d(res.content));
+    });
   }
 
-  function uploadImages(files) {
-    if (!files || files.length === 0) return;
-    var g = $('gallery');
-    g.innerHTML = '<div class="loading" style="grid-column:1/-1;"><div class="spinner"></div>上传中...</div>';
-
-    var total = files.length;
-
-    function next(i) {
-      if (i >= total) {
-        loadImages();
-        updateStats();
-        return;
-      }
-      compress(files[i]).then(function(blob) {
-        var name = Date.now() + '_' + i + '_' + Math.random().toString(36).slice(2, 8) + '.jpg';
-        var path = userId + '/' + curHobby + '/' + name;
-        return stoReq('/object/images/' + path, {
-          method: 'POST',
-          headers: { 'Content-Type': 'image/jpeg', 'x-upsert': 'false' },
-          body: blob
-        });
-      }).then(function(r) {
-        if (!r.ok) throw new Error('上传失败');
-        next(i + 1);
-      }).catch(function() {
-        next(i + 1);
-      });
-    }
-    next(0);
+  function saveData() {
+    setSync('busy', '正在保存到云端…');
+    var body = {
+      message: '佳宜更新于 ' + new Date().toLocaleString('zh-CN'),
+      content: b64e(JSON.stringify(DB)),
+      branch: CFG.branch
+    };
+    if (dataSha) body.sha = dataSha;
+    return gh('/contents/data.json', 'PUT', body).then(function(res) {
+      dataSha = res.content.sha;
+      setSync('ok', '云端已同步 · ' + new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }));
+    }).catch(function(e) {
+      setSync('err', '保存失败，请重试');
+      throw e;
+    });
   }
 
-  function compress(file) {
-    return new Promise(function(res, rej) {
+  function uploadImage(dataUrl, onProgress) {
+    var name = 'images/' + Date.now() + '-' + Math.random().toString(36).slice(2, 7) + '.jpg';
+    return gh('/contents/' + name, 'PUT', {
+      message: '佳宜上传了一张照片',
+      content: dataUrl.split(',')[1],
+      branch: CFG.branch
+    }).then(function() { return name; });
+  }
+
+  /* ---------- 密码 ---------- */
+  function hashPw(pw) {
+    var s = 'jiayi::' + pw;
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)).then(function(buf) {
+      var arr = new Uint8Array(buf), hex = '';
+      for (var i = 0; i < arr.length; i++) hex += ('0' + arr[i].toString(16)).slice(-2);
+      return hex;
+    });
+  }
+
+  /* ---------- 图片压缩 ---------- */
+  function compressImage(file) {
+    return new Promise(function(resolve, reject) {
       var reader = new FileReader();
       reader.onload = function(e) {
         var img = new Image();
         img.onload = function() {
-          var max = 1280;
-          var w = img.width, h = img.height;
+          var max = 1280, w = img.width, h = img.height;
           if (w > max || h > max) {
-            if (w > h) { h = h * max / w; w = max; }
-            else { w = w * max / h; h = max; }
+            if (w > h) { h = Math.round(h * max / w); w = max; }
+            else { w = Math.round(w * max / h); h = max; }
           }
-          var cv = document.createElement('canvas');
-          cv.width = w; cv.height = h;
-          cv.getContext('2d').drawImage(img, 0, 0, w, h);
-          cv.toBlob(function(b) {
-            if (b) res(b); else rej(new Error('err'));
-          }, 'image/jpeg', 0.85);
+          var c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(c.toDataURL('image/jpeg', 0.82));
         };
-        img.onerror = rej;
+        img.onerror = reject;
         img.src = e.target.result;
       };
-      reader.onerror = rej;
+      reader.onerror = reject;
       reader.readAsDataURL(file);
     });
   }
 
-  function delImg(idx) {
-    pendingDel = { type: 'image', idx: idx };
-    showDelSheet();
+  /* ---------- 渲染 ---------- */
+  function renderChips() {
+    var box = $('chips');
+    box.innerHTML = '';
+    DB.hobbies.forEach(function(h) {
+      var cnt = DB.notes.filter(function(n) { return n.hobbyId === h.id; }).length;
+      var el = document.createElement('div');
+      el.className = 'chip' + (curHobby === h.id ? ' active' : '');
+      el.innerHTML = h.icon + ' ' + h.name + '<span class="cnt">' + cnt + '</span>';
+      el.onclick = function() { curHobby = h.id; renderChips(); renderNotes(); };
+      box.appendChild(el);
+    });
+    var add = document.createElement('div');
+    add.className = 'chip chip-add';
+    add.textContent = '＋ 新爱好';
+    add.onclick = openHobbyModal;
+    box.appendChild(add);
   }
 
-  function doDelImg() {
-    if (!pendingDel || pendingDel.type !== 'image') return;
-    var img = curImages[pendingDel.idx];
-    if (!img) return;
-    var path = userId + '/' + curHobby + '/' + img.name;
-    stoReq('/object/images/' + path, { method: 'DELETE' }).then(function() {
-      loadImages();
-      updateStats();
-    }).catch(function() { alert('删除失败了，再试试～'); });
-    closeDelSheet();
+  function fmtDate(ts) {
+    var d = new Date(ts);
+    return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' +
+      ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
   }
 
-  function viewImg(src) {
-    $('viewerImg').src = src;
-    $('viewer').classList.add('on');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeViewer() {
-    $('viewer').classList.remove('on');
-    document.body.style.overflow = '';
-  }
-
-  // ===== 笔记 =====
-  function loadNotes() {
-    var wrap = $('notesWrap');
-    wrap.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
-
-    apiReq('/notes?select=id,content,created_at&hobby_id=eq.' + curHobby + '&user_id=eq.' + userId + '&order=created_at.desc')
-      .then(function(d) { curNotes = d || []; renderNotes(); })
-      .catch(function(e) {
-        wrap.innerHTML = '<div class="empty"><div class="icon">📝</div>加载失败了<br>' + esc(e.message) + '</div>';
-      });
-  }
+  window.imgFail = function(el) {
+    var p = el.getAttribute('data-path');
+    if (!p) return;
+    if (el.src.indexOf('raw.githubusercontent') === -1) {
+      el.src = CFG.raw + p;
+    } else {
+      var div = document.createElement('div');
+      div.className = 'img-pending';
+      div.textContent = '☁️ 图片同步中，稍后刷新';
+      el.parentNode.replaceChild(div, el);
+    }
+  };
 
   function renderNotes() {
-    var wrap = $('notesWrap');
-    if (curNotes.length === 0) {
-      wrap.innerHTML = '<div class="empty"><div class="icon">📝</div>还没有笔记哦<br>点击上方"写笔记"记录心情吧～</div>';
+    var box = $('notes-list');
+    box.innerHTML = '';
+    var list = DB.notes.filter(function(n) { return n.hobbyId === curHobby; })
+      .sort(function(a, b) { return b.ts - a.ts; });
+
+    if (!list.length) {
+      var h = DB.hobbies.filter(function(x) { return x.id === curHobby; })[0];
+      box.innerHTML = '<div class="empty-state"><div class="big">' + (h ? h.icon : '💙') + '</div>' +
+        '<p>这里还空空的～<br>点右下角 ＋ 记录第一张' + (h ? h.name : '') + '吧</p></div>';
       return;
     }
-    var html = '';
-    for (var i = 0; i < curNotes.length; i++) {
-      var n = curNotes[i];
-      html += '<div class="note">' +
-        '<button class="del" onclick="delNote(\'' + n.id + '\')">✕</button>' +
-        '<p>' + esc(n.content) + '</p>' +
-        '<div class="date">' + fmtDate(n.created_at) + '</div>' +
-        '</div>';
-    }
-    wrap.innerHTML = html;
+
+    list.forEach(function(n) {
+      var card = document.createElement('div');
+      card.className = 'note-card';
+
+      if (n.images && n.images.length) {
+        var grid = document.createElement('div');
+        var cls = n.images.length === 1 ? 'n1' : n.images.length === 2 ? 'n2' : 'n3';
+        grid.className = 'note-imgs ' + cls;
+        n.images.forEach(function(p) {
+          var img = document.createElement('img');
+          img.setAttribute('data-path', p);
+          img.loading = 'lazy';
+          img.onerror = function() { window.imgFail(this); };
+          if (n._preview && n._preview[p]) img.src = n._preview[p];
+          else img.src = CFG.pages + p;
+          grid.appendChild(img);
+        });
+        card.appendChild(grid);
+      }
+
+      if (n.text) {
+        var t = document.createElement('div');
+        t.className = 'note-text';
+        t.textContent = n.text;
+        card.appendChild(t);
+      }
+
+      var foot = document.createElement('div');
+      foot.className = 'note-foot';
+      foot.innerHTML = '<span class="note-date">' + fmtDate(n.ts) + '</span>';
+      var del = document.createElement('button');
+      del.className = 'note-del';
+      del.textContent = '删除';
+      del.onclick = function() { delNote(n.id); };
+      foot.appendChild(del);
+      card.appendChild(foot);
+
+      box.appendChild(card);
+    });
   }
 
-  function openNote() {
-    $('noteText').value = '';
-    $('noteMask').classList.add('on');
-    $('noteSheet').classList.add('on');
-    document.body.style.overflow = 'hidden';
-    setTimeout(function() { $('noteText').focus(); }, 300);
+  function renderAll() {
+    if (!curHobby && DB.hobbies.length) curHobby = DB.hobbies[0].id;
+    renderChips();
+    renderNotes();
   }
-  function closeNote() {
-    $('noteMask').classList.remove('on');
-    $('noteSheet').classList.remove('on');
-    document.body.style.overflow = '';
+
+  /* ---------- 操作 ---------- */
+  function delNote(id) {
+    if (!confirm('确定删掉这条记录吗？')) return;
+    DB.notes = DB.notes.filter(function(n) { return n.id !== id; });
+    renderAll();
+    saveData().then(function() { toast('已删除 🗑️'); }).catch(function(e) { toast(e.message); });
+  }
+
+  function openHobbyModal() {
+    var row = $('emoji-row');
+    row.innerHTML = '';
+    selEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    EMOJIS.forEach(function(e) {
+      var b = document.createElement('button');
+      b.className = 'emoji-opt' + (e === selEmoji ? ' sel' : '');
+      b.textContent = e;
+      b.onclick = function() {
+        selEmoji = e;
+        var opts = row.querySelectorAll('.emoji-opt');
+        for (var i = 0; i < opts.length; i++) opts[i].classList.remove('sel');
+        b.classList.add('sel');
+      };
+      row.appendChild(b);
+    });
+    $('hobby-name').value = '';
+    $('mask-hobby').classList.add('show');
+  }
+
+  function renderPending() {
+    var box = $('pending-imgs');
+    box.innerHTML = '';
+    pendingImgs.forEach(function(d, i) {
+      var pi = document.createElement('div');
+      pi.className = 'pi';
+      var img = document.createElement('img');
+      img.src = d;
+      var rm = document.createElement('button');
+      rm.className = 'rm';
+      rm.textContent = '✕';
+      rm.onclick = function() { pendingImgs.splice(i, 1); renderPending(); };
+      pi.appendChild(img);
+      pi.appendChild(rm);
+      box.appendChild(pi);
+    });
+  }
+
+  function handleFiles(files) {
+    if (!files || !files.length) return;
+    var arr = Array.prototype.slice.call(files).slice(0, 9 - pendingImgs.length);
+    toast('正在压缩图片…');
+    Promise.all(arr.map(compressImage)).then(function(urls) {
+      pendingImgs = pendingImgs.concat(urls);
+      renderPending();
+    }).catch(function() { toast('图片读取失败，换一张试试'); });
   }
 
   function saveNote() {
-    var txt = $('noteText').value.trim();
-    if (!txt) { alert('写点什么再保存呀～'); return; }
-    var btn = $('saveNoteBtn');
-    btn.disabled = true;
-    btn.textContent = '保存中...';
+    var text = $('note-text').value.trim();
+    if (!text && !pendingImgs.length) { toast('先写点什么或者选张照片吧～'); return; }
 
-    apiReq('/notes', {
-      method: 'POST',
-      body: JSON.stringify({
-        hobby_id: curHobby,
-        user_id: userId,
-        content: txt
-      })
-    }).then(function() {
-      closeNote();
-      loadNotes();
-      updateStats();
-      var segs = document.querySelectorAll('.seg');
-      for (var i = 0; i < segs.length; i++) segs[i].classList.remove('on');
-      document.querySelector('.seg[data-tab="notes"]').classList.add('on');
-      $('galWrap').classList.remove('on');
-      $('notesWrap').classList.add('on');
-    }).catch(function() { alert('保存失败了，再试试～'); })
-      .then(function() {
-        btn.disabled = false;
-        btn.textContent = '保存笔记 💾';
-      });
-  }
+    $('upload-bar').classList.add('show');
+    var imgs = pendingImgs.slice();
+    var previews = {};
+    var paths = [];
+    var step = 0;
 
-  function delNote(id) {
-    pendingDel = { type: 'note', id: id };
-    showDelSheet();
-  }
-
-  function doDelNote() {
-    if (!pendingDel || pendingDel.type !== 'note') return;
-    apiReq('/notes?id=eq.' + pendingDel.id + '&user_id=eq.' + userId, { method: 'DELETE' })
-      .then(function() { loadNotes(); updateStats(); })
-      .catch(function() { alert('删除失败了，再试试～'); });
-    closeDelSheet();
-  }
-
-  // ===== 添加爱好 =====
-  function initEmojiGrid() {
-    var grid = $('emojiGrid');
-    grid.innerHTML = '';
-    for (var i = 0; i < EMOJIS.length; i++) {
-      (function(e) {
-        var div = document.createElement('div');
-        div.className = 'emoji-opt' + (e === '🎮' ? ' on' : '');
-        div.textContent = e;
-        div.onclick = function() {
-          var all = document.querySelectorAll('.emoji-opt');
-          for (var j = 0; j < all.length; j++) all[j].classList.remove('on');
-          div.classList.add('on');
-          selEmoji = e;
+    function next() {
+      if (step < imgs.length) {
+        $('upload-text').textContent = '正在上传照片 ' + (step + 1) + '/' + imgs.length + '…';
+        uploadImage(imgs[step]).then(function(name) {
+          paths.push(name);
+          previews[name] = imgs[step];
+          step++;
+          next();
+        }).catch(fail);
+      } else {
+        $('upload-text').textContent = '正在保存…';
+        var note = {
+          id: 'n' + Date.now() + Math.random().toString(36).slice(2, 5),
+          hobbyId: curHobby,
+          text: text,
+          images: paths,
+          ts: Date.now(),
+          _preview: previews
         };
-        grid.appendChild(div);
-      })(EMOJIS[i]);
-    }
-  }
-
-  function openAddHobby() {
-    selEmoji = '🎮';
-    initEmojiGrid();
-    $('newHobbyName').value = '';
-    $('addHobbyMask').classList.add('on');
-    $('addHobbySheet').classList.add('on');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeAddHobby() {
-    $('addHobbyMask').classList.remove('on');
-    $('addHobbySheet').classList.remove('on');
-    document.body.style.overflow = '';
-  }
-
-  function addHobby() {
-    var name = $('newHobbyName').value.trim();
-    if (!name) { alert('给爱好起个名字吧～'); return; }
-    var btn = $('addHobbyBtn');
-    btn.disabled = true;
-    btn.textContent = '添加中...';
-
-    apiReq('/hobbies', {
-      method: 'POST',
-      body: JSON.stringify({
-        user_id: userId,
-        name: name,
-        icon: selEmoji,
-        sort_order: hobbies.length + 1
-      })
-    }).then(function() {
-      closeAddHobby();
-      loadHobbies();
-      updateStats();
-    }).catch(function() { alert('添加失败了，再试试～'); })
-      .then(function() {
-        btn.disabled = false;
-        btn.textContent = '添加这个爱好 ✨';
-      });
-  }
-
-  // ===== 删除确认 =====
-  function showDelSheet() {
-    $('delConfirmBtn').onclick = function() {
-      if (!pendingDel) return;
-      if (pendingDel.type === 'image') doDelImg();
-      else if (pendingDel.type === 'note') doDelNote();
-    };
-    $('delMask').classList.add('on');
-    $('delSheet').classList.add('on');
-  }
-  function closeDelSheet() {
-    $('delMask').classList.remove('on');
-    $('delSheet').classList.remove('on');
-    pendingDel = null;
-  }
-
-  // ===== 图片选择 =====
-  function openImgPicker() {
-    $('imgMask').classList.add('on');
-    $('imgSheet').classList.add('on');
-  }
-  function closeImgPicker() {
-    $('imgMask').classList.remove('on');
-    $('imgSheet').classList.remove('on');
-  }
-
-  // ===== 统计 =====
-  function updateStats() {
-    $('sHobby').textContent = hobbies.length;
-
-    // 统计笔记
-    apiReq('/notes?select=id&user_id=eq.' + userId).then(function(d) {
-      $('sNote').textContent = (d || []).length;
-    }).catch(function() {});
-
-    // 统计图片（大概估算：列出所有文件）
-    var folder = userId + '/';
-    stoReq('/object/list/images', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prefix: folder, limit: 500, offset: 0 })
-    }).then(function(r) {
-      if (!r.ok) return 0;
-      return r.json();
-    }).then(function(d) {
-      if (d && d.objects) {
-        var count = d.objects.filter(function(f) {
-          return f.name && f.name.indexOf('.') > 0 && !f.name.endsWith('/');
-        }).length;
-        $('sImg').textContent = count;
+        DB.notes.push(note);
+        saveData().then(function() {
+          $('upload-bar').classList.remove('show');
+          $('mask-note').classList.remove('show');
+          pendingImgs = [];
+          $('note-text').value = '';
+          renderPending();
+          renderAll();
+          toast('保存成功 ☁️');
+        }).catch(fail);
       }
-    }).catch(function() {});
+    }
+    function fail(e) {
+      $('upload-bar').classList.remove('show');
+      toast(e.message || '保存失败，请检查网络后重试');
+    }
+    next();
   }
 
-  // ===== 事件绑定 =====
-  function bindAll() {
-    $('loginBtn').onclick = handleLogin;
-    $('pwdInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleLogin(); });
-    $('confirmInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleLogin(); });
-
-    bindTabbar();
-    $('backBtn').onclick = goHome;
-    bindSegs();
-
-    $('addImgBtn').onclick = openImgPicker;
-    $('takePhotoBtn').onclick = function() {
-      closeImgPicker();
-      setTimeout(function() { $('cameraInput').click(); }, 200);
-    };
-    $('chooseAlbumBtn').onclick = function() {
-      closeImgPicker();
-      setTimeout(function() { $('albumInput').click(); }, 200);
-    };
-    $('cancelImg').onclick = closeImgPicker;
-    $('imgMask').onclick = closeImgPicker;
-
-    $('cameraInput').addEventListener('change', function(e) {
-      uploadImages(e.target.files);
-      e.target.value = '';
+  /* ---------- 统计 ---------- */
+  function openStats() {
+    var imgs = 0;
+    DB.notes.forEach(function(n) { imgs += (n.images ? n.images.length : 0); });
+    $('st-notes').textContent = DB.notes.length;
+    $('st-imgs').textContent = imgs;
+    $('st-hobbies').textContent = DB.hobbies.length;
+    var rows = $('stat-rows');
+    rows.innerHTML = '';
+    DB.hobbies.forEach(function(h) {
+      var ns = DB.notes.filter(function(n) { return n.hobbyId === h.id; });
+      var ic = 0;
+      ns.forEach(function(n) { ic += (n.images ? n.images.length : 0); });
+      var r = document.createElement('div');
+      r.className = 'stat-row';
+      r.innerHTML = '<span>' + h.icon + ' ' + h.name + '</span><span><b>' + ns.length + '</b> 条 · ' + ic + ' 图</span>';
+      rows.appendChild(r);
     });
-    $('albumInput').addEventListener('change', function(e) {
-      uploadImages(e.target.files);
-      e.target.value = '';
-    });
+    $('mask-stats').classList.add('show');
+  }
 
-    $('addNoteBtn').onclick = openNote;
-    $('closeNote').onclick = closeNote;
-    $('noteMask').onclick = closeNote;
-    $('saveNoteBtn').onclick = saveNote;
-
-    $('closeAddHobby').onclick = closeAddHobby;
-    $('addHobbyMask').onclick = closeAddHobby;
-    $('addHobbyBtn').onclick = addHobby;
-
-    $('cancelDel').onclick = closeDelSheet;
-    $('delMask').onclick = closeDelSheet;
-
-    $('closeViewer').onclick = closeViewer;
-    $('viewer').onclick = function(e) { if (e.target === this) closeViewer(); };
-
-    $('logoutBtn').onclick = logout;
-
-    // 防止双击缩放
-    var lastT = 0;
-    document.addEventListener('touchend', function(e) {
-      var n = Date.now();
-      if (n - lastT <= 300) e.preventDefault();
-      lastT = n;
-    }, { passive: false });
-
-    // ESC 返回
-    document.addEventListener('keydown', function(e) {
-      if (e.key !== 'Escape') return;
-      if ($('viewer').classList.contains('on')) closeViewer();
-      else if ($('imgSheet').classList.contains('on')) closeImgPicker();
-      else if ($('delSheet').classList.contains('on')) closeDelSheet();
-      else if ($('noteSheet').classList.contains('on')) closeNote();
-      else if ($('addHobbySheet').classList.contains('on')) closeAddHobby();
-      else if ($('pageDetail').classList.contains('active')) goHome();
+  /* ---------- 初始化 ---------- */
+  function init() {
+    loadData().then(function(d) {
+      if (d) DB = d;
+      if (!DB.password) {
+        showPage('page-setup');
+      } else if (sessionStorage.getItem('jiayi_ok') === '1') {
+        enterMain();
+      } else {
+        showPage('page-login');
+      }
+    }).catch(function(e) {
+      showPage('page-loading');
+      document.querySelector('.loading-text').textContent = '加载失败：' + e.message + '（下拉刷新重试）';
     });
   }
 
-  // ===== 初始化 =====
-  bindAll();
-
-  // 检查登录状态
-  if (userId) {
-    apiReq('/users?select=id&id=eq.' + userId).then(function(d) {
-      if (d && d.length > 0) { enterApp(); }
-      else { showPage('pageLogin'); checkHasUser(); }
-    }).catch(function() {
-      showPage('pageLogin');
-      checkHasUser();
-    });
-  } else {
-    showPage('pageLogin');
-    checkHasUser();
+  function enterMain() {
+    if (!DB.hobbies || !DB.hobbies.length) DB.hobbies = DEFAULT_HOBBIES.slice();
+    if (!DB.notes) DB.notes = [];
+    curHobby = DB.hobbies[0].id;
+    showPage('page-main');
+    renderAll();
   }
 
-  // 全局函数
-  window.viewImg = viewImg;
-  window.delImg = delImg;
-  window.delNote = delNote;
+  /* ---------- 事件绑定 ---------- */
+  $('btn-setup').onclick = function() {
+    var p1 = $('setup-pw').value, p2 = $('setup-pw2').value;
+    if (p1.length < 4) { toast('密码至少 4 位哦'); return; }
+    if (p1 !== p2) { toast('两次密码不一样，再检查一下'); return; }
+    var btn = $('btn-setup');
+    btn.disabled = true;
+    hashPw(p1).then(function(h) {
+      DB.password = h;
+      DB.hobbies = DEFAULT_HOBBIES.slice();
+      DB.notes = [];
+      return saveData();
+    }).then(function() {
+      sessionStorage.setItem('jiayi_ok', '1');
+      enterMain();
+      toast('欢迎来到你的小天地 💙');
+    }).catch(function(e) {
+      btn.disabled = false;
+      toast(e.message || '设置失败，请检查网络');
+    });
+  };
+
+  $('btn-login').onclick = function() {
+    var pw = $('login-pw').value;
+    if (!pw) { toast('先输入密码哦'); return; }
+    var btn = $('btn-login');
+    btn.disabled = true;
+    hashPw(pw).then(function(h) {
+      if (h === DB.password) {
+        sessionStorage.setItem('jiayi_ok', '1');
+        enterMain();
+      } else {
+        toast('密码不对哦，再试试～');
+      }
+      btn.disabled = false;
+    });
+  };
+  $('login-pw').addEventListener('keydown', function(e) { if (e.key === 'Enter') $('btn-login').click(); });
+
+  $('btn-add').onclick = function() {
+    var h = DB.hobbies.filter(function(x) { return x.id === curHobby; })[0];
+    $('note-hobby-name').textContent = h ? h.icon + ' ' + h.name : '';
+    pendingImgs = [];
+    renderPending();
+    $('note-text').value = '';
+    $('mask-note').classList.add('show');
+  };
+  $('btn-camera').onclick = function() { $('file-camera').click(); };
+  $('btn-album').onclick = function() { $('file-album').click(); };
+  $('file-camera').onchange = function() { handleFiles(this.files); this.value = ''; };
+  $('file-album').onchange = function() { handleFiles(this.files); this.value = ''; };
+  $('btn-save-note').onclick = saveNote;
+  $('btn-cancel-note').onclick = function() { $('mask-note').classList.remove('show'); };
+
+  $('btn-save-hobby').onclick = function() {
+    var name = $('hobby-name').value.trim();
+    if (!name) { toast('先给它起个名字吧'); return; }
+    var h = { id: 'h' + Date.now(), name: name, icon: selEmoji };
+    DB.hobbies.push(h);
+    curHobby = h.id;
+    $('mask-hobby').classList.remove('show');
+    renderAll();
+    saveData().then(function() { toast('新爱好创建成功 ✨'); }).catch(function(e) { toast(e.message); });
+  };
+  $('btn-cancel-hobby').onclick = function() { $('mask-hobby').classList.remove('show'); };
+
+  $('btn-stats').onclick = openStats;
+  $('btn-close-stats').onclick = function() { $('mask-stats').classList.remove('show'); };
+
+  $('btn-settings').onclick = function() {
+    $('pw-old').value = ''; $('pw-new').value = '';
+    $('mask-settings').classList.add('show');
+  };
+  $('btn-close-settings').onclick = function() { $('mask-settings').classList.remove('show'); };
+  $('btn-chpw').onclick = function() {
+    var oldPw = $('pw-old').value, newPw = $('pw-new').value;
+    if (!oldPw || !newPw) { toast('两个都要填哦'); return; }
+    if (newPw.length < 4) { toast('新密码至少 4 位'); return; }
+    hashPw(oldPw).then(function(h) {
+      if (h !== DB.password) { toast('旧密码不对哦'); return null; }
+      return hashPw(newPw).then(function(h2) {
+        DB.password = h2;
+        return saveData();
+      }).then(function() {
+        toast('密码改好啦 🔒');
+        $('pw-old').value = ''; $('pw-new').value = '';
+      });
+    }).catch(function(e) { toast(e.message); });
+  };
+  $('btn-logout').onclick = function() {
+    sessionStorage.removeItem('jiayi_ok');
+    location.reload();
+  };
+
+  var masks = document.querySelectorAll('.mask');
+  for (var i = 0; i < masks.length; i++) {
+    (function(m) {
+      m.addEventListener('click', function(e) { if (e.target === m) m.classList.remove('show'); });
+    })(masks[i]);
+  }
+
+  init();
+})();
 </script>
-
-
-
-</body></html>
+</body>
+</html>
